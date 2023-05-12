@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Search Movie</title>
+<style>
+body{
+background-repeat:no repeat;
+background-attachment:fixed;
+background-size:100% 100%;
+
+}
+h2{
+color:white;
+}
+h3{
+color:white;
+}
+p{
+color:white;
+}
+</style>
+</head>
+<body background="img/img2.jpg">
+<h2><label>Search Movies:<input type="text" id="search-input" placeholder="Search for a movie u want to show"></label></h2>
+<div id="search-results"></div>
+
+
+<script>
+const movies = [
+  { title: "The Shawshank Redemption", year: 1994, director: "Frank Darabont" },
+  { title: "The Godfather", year: 1972, director: "Francis Ford Coppola" },
+  { title: "The Godfather: Part II", year: 1974, director: "Francis Ford Coppola" },
+  { title: "The Dark Knight", year: 2008, director: "Christopher Nolan" },
+  { title: "12 Angry Men", year: 1957, director: "Sidney Lumet" },
+  { title: "Schindler's List", year: 1993, director: "Steven Spielberg" },
+  { title: "The Lord of the Rings: The Return of the King", year: 2003, director: "Peter Jackson" },
+  { title: "Pulp Fiction", year: 1994, director: "Quentin Tarantino" },
+  { title: "Forrest Gump", year: 1994, director: "Robert Zemeckis" },
+  { title: "Star Wars: Episode V - The Empire Strikes Back", year: 1980, director: "Irvin Kershner" }
+];
+
+// Get the search input and results container
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+
+// Function to generate search results based on the search query
+function generateSearchResults(query) {
+  // Clear the previous search results
+  searchResults.innerHTML = "";
+
+  // Filter the movies based on the search query
+  const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+
+  // Generate HTML for the search results
+  const resultsHTML = filteredMovies.map(movie => {
+    return `
+      <div>
+        <h3>${movie.title} (${movie.year})</h3>
+        <p>Directed by ${movie.director}</p>
+      </div>
+    `;
+  }).join("");
+
+  // Display the search results in the container
+  searchResults.innerHTML = resultsHTML;
+}
+
+// Event listener for the search input
+searchInput.addEventListener("input", event => {
+  const query = event.target.value;
+  generateSearchResults(query);
+});
+
+
+
+
+
+</script>
+</body>
+
+</html>

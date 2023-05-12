@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Booking and cancel</title>
+	<style>
+		/* Define CSS styles for seats */
+		.seat {
+			width: 30px;
+			height: 30px;
+			background-color: rgb(70, 240, 27);
+			margin: 5px;
+			display: inline-block;
+			cursor: pointer;
+		}
+		.booked {
+			background-color: rgb(10, 9, 9);
+			cursor: default;
+		}
+p{
+
+color:rgb(245, 243, 243);
+}
+
+h1{color:rgb(251, 251, 251)}
+body{
+background-repeat:no repeat;
+background-attachment:fixed;
+background-size:100% 100%;
+
+}
+
+	</style>
+</head>
+<body background="img/img2.jpg">
+	<h1>Seats</h1>
+	<h2><p>Total seats: <span id="total-seats"></span></p></h2>
+	<h2><p>Total price: <span id="total-price"></span></p></h2>
+
+	<!-- Define the seats as HTML elements with a "data-id" attribute to identify them -->
+	<div class="seat" data-id="1"></div>
+	<div class="seat" data-id="2"></div>
+	<div class="seat" data-id="3"></div>
+	<div class="seat" data-id="4"></div>
+	<div class="seat" data-id="5"></div>
+<div class="seat" data-id="6"></div>
+<div class="seat" data-id="7"></div>
+<div class="seat" data-id="8"></div>
+<div class="seat" data-id="9"></div>
+<div class="seat" data-id="10"></div>
+
+	<h2><button id="cancel-booking"><b>Cancel Your Booking</b></button></h2>
+
+	<script>
+		// Define variables to keep track of booked seats and prices
+		let bookedSeats = [];
+		let totalPrice = 0;
+
+		// Add event listeners to seats
+		let seats = document.querySelectorAll('.seat');
+		seats.forEach(seat => {
+			seat.addEventListener('click', () => {
+				let seatId = seat.getAttribute('data-id');
+				if (bookedSeats.includes(seatId)) {
+					// Seat is already booked, unbook it
+					bookedSeats.splice(bookedSeats.indexOf(seatId), 1);
+					seat.classList.remove('booked');
+					seat.classList.add('seat');
+					totalPrice -= 10; // or whatever the price is
+				} else {
+					// Book seat
+					bookedSeats.push(seatId);
+					seat.classList.remove('seat');
+					seat.classList.add('booked');
+					totalPrice += 10; // or whatever the price is
+				}
+				// Update total number of seats and total price
+				document.getElementById('total-seats').innerHTML = bookedSeats.length;
+				document.getElementById('total-price').innerHTML = totalPrice;
+			});
+		});
+
+		// Add event listener to "Cancel Booking" button
+		let cancelBookingButton = document.getElementById('cancel-booking');
+		cancelBookingButton.addEventListener('click', () => {
+			// Clear bookedSeats array and reset seats to blue
+			bookedSeats = [];
+			totalPrice = 0;
+			seats.forEach(seat => {
+				seat.classList.remove('booked');
+				seat.classList.add('seat');
+			});
+			// Update total number of seats and total price
+			document.getElementById('total-seats').innerHTML = bookedSeats.length;
+			document.getElementById('total-price').innerHTML = totalPrice;
+		});
+
+	</script>
+
+</body>
+</html>
